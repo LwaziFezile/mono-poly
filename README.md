@@ -37,7 +37,7 @@ To run the Monopoly Game program locally, follow these steps:
 ## Usage
 
 After installing the program, run the Main class to start the game:
-java Main
+
 Follow the on-screen instructions to play the game. Each player takes turns rolling dice, moving around the board, and interacting with properties.
 
 ## Contributing
