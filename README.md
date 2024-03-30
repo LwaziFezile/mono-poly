@@ -34,13 +34,13 @@ To run the Monopoly Game program locally, follow these steps:
    ```sh
    git clone https://github.com/LwaziFezile/mono-poly.git
 
-##Usage
-After installing the program, run the Main class to start the game:
+## Usage
 
+After installing the program, run the Main class to start the game:
 java Main
 Follow the on-screen instructions to play the game. Each player takes turns rolling dice, moving around the board, and interacting with properties.
 
-##Contributing
+## Contributing
 
 Contributions to the Monopoly Game project are welcome! If you have suggestions for improvements, new features, or bug fixes, please open an issue or submit a pull request. Make sure to follow the project's coding conventions and guidelines.
 
