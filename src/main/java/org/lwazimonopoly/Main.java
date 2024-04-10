@@ -1,6 +1,6 @@
 package org.lwazimonopoly;
 
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class Main {
