@@ -1,8 +1,14 @@
 package org.lwazimonopoly;
 
+import java.util.ArrayList;
+
 public class MonopolyBoard {
-    //TODO: Create the property cells in the board, special cells in the corners of the potential inner
-    //TODO: classes
+    //Shuffle Banking Event Card Deck
+    public boolean shuffleDeck = Property.shuffleDeck();
+    public ArrayList<String> deck = Property.specialEventCards_shuffled;
+
+    //TODO: Special cells (eg. Free Parking, Jail) not populated
+    //TODO:
     Property oldKentRoad = new Property("Old Kent Road", new int[]{70, 130, 220, 370, 750}, "brown");
     Property whitechapelRoad = new Property("Whitechapel Road", new int[]{70, 130, 220, 370, 750}, "brown");
     Property angelIslington = new Property("The Angel, Islington", new int[]{80, 140, 240, 410, 800}, "light blue");
@@ -25,6 +31,7 @@ public class MonopolyBoard {
     Property bondStreet = new Property("Bond Street",  new int[]{250, 340, 480, 730, 1440}, "green");
     Property parkLane = new Property("Park Lane", new int[]{270, 360, 510, 740, 1500}, "blue");
     Property mayfair = new Property("Mayfair", new int[]{300, 400, 560, 810, 1600}, "blue");
+
 
 
 }

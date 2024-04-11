@@ -10,11 +10,13 @@ public class Player {
         this.playerName = playerName;
     }
     //TODO: If the values of both dice are equal to each other, prompt the player to roll again
+
     public int[] rollDice(){
         int dice1 = (int) (Math.random() * 6) + 1;
         int dice2 = (int) (Math.random() * 6) + 1;
         return new int[]{dice1, dice2};
     }
+
     //TODO: Print out the property name and it's current rent level for the method below, consider returning
     //TODO: the playerProperties list and do the for loop on line 24 where ever this method would be required
     public ArrayList<Property> getPlayerProperties() {
