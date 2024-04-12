@@ -36,7 +36,9 @@ public class Property {
             this.propertyRentLevels[i] = propertyRentLevel[i];
         }
     }
-
+    public Property(){
+        this.colorGroup = null;
+    }
     // Randomly shuffles the deck
     public static boolean shuffleDeck(){
         if (!deckShuffled){
@@ -103,6 +105,9 @@ public class Property {
     }
     public static void decreaseRentLevelSideBoard(Player targetPlayer , Property targetProperty){
 
+    }
+    public static void collect200(Player targetPlayer){
+        targetPlayer.setPlayerCredit(200);
     }
 
 }

@@ -6,6 +6,7 @@ public class Player {
     private String playerName;
     private int playerCredit = 1500;
     private ArrayList <Property> playerProperties = new ArrayList<>();
+    private int playerPosition = 0;
     public Player(String playerName){
         this.playerName = playerName;
     }
@@ -37,5 +38,17 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setPlayerPosition(int playerPosition) {
+        this.playerPosition = playerPosition;
+    }
+
+    public int getPlayerPosition() {
+        return playerPosition;
+    }
+
+    public void setPlayerCredit(int playerCredit) {
+        this.playerCredit += playerCredit;
     }
 }

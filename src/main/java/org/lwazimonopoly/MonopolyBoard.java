@@ -1,6 +1,7 @@
 package org.lwazimonopoly;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MonopolyBoard {
     //Shuffle Banking Event Card Deck
@@ -31,6 +32,8 @@ public class MonopolyBoard {
     Property bondStreet = new Property("Bond Street",  new int[]{250, 340, 480, 730, 1440}, "green");
     Property parkLane = new Property("Park Lane", new int[]{270, 360, 510, 740, 1500}, "blue");
     Property mayfair = new Property("Mayfair", new int[]{300, 400, 560, 810, 1600}, "blue");
+
+
 
 
 
