@@ -7,6 +7,7 @@ public class Player {
     private int playerCredit = 1500;
     private ArrayList <Property> playerProperties = new ArrayList<>();
     private int playerPosition = 0;
+    private boolean playerBuyProperty = false;
     public Player(String playerName){
         this.playerName = playerName;
     }
@@ -50,5 +51,15 @@ public class Player {
 
     public void setPlayerCredit(int playerCredit) {
         this.playerCredit += playerCredit;
+    }
+     public void deductPlayerCredit(int playerCredit){
+        this.playerCredit -= playerCredit;
+     }
+    public void setPlayerBuyProperty(boolean state){
+        this.playerBuyProperty = state;
+    }
+
+    public boolean isPlayerBuyProperty() {
+        return playerBuyProperty;
     }
 }

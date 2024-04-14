@@ -10,6 +10,7 @@ public class Property {
     private int currentRentLevel = 0;
     private Player propertyOwner = null;
     private final String colorGroup;
+    private int purchaseValue;
 
     // deckShuffled is used to determine whether the deck has been shuffled at the beginning of the game or not
     private static boolean deckShuffled = false;
@@ -26,7 +27,8 @@ public class Property {
     public static ArrayList <String> specialEventCards_shuffled = new ArrayList<>();
 
     // Property Constructor, initializes the local attributes for this class
-    public Property(String propertyName, int[] propertyRentLevel, String colorGroup){
+    public Property(String propertyName, int[] propertyRentLevel, String colorGroup, int purchaseValue){
+        this.purchaseValue = purchaseValue;
         this.propertyName = propertyName;
         this.colorGroup = colorGroup;
 
@@ -37,6 +39,7 @@ public class Property {
         }
     }
     public Property(){
+
         this.colorGroup = null;
     }
     // Randomly shuffles the deck
@@ -63,6 +66,7 @@ public class Property {
     public String getPropertyName() {
         return propertyName;
     }
+
     public String getColorGroup(){ return colorGroup; }
     public void setPropertyName(String propertyName) {
         this.propertyName = propertyName;
@@ -80,10 +84,16 @@ public class Property {
         this.currentRentLevel = currentRentLevel;
     }
 
+    public int getPurchaseValue() {
+        return purchaseValue;
+    }
+
     public String getPropertyOwner() {
         return propertyOwner.getPlayerName();
     }
-
+    public boolean isPropertyOwnerNull(){
+        return this.propertyOwner == null;
+    }
     public void setPropertyOwner(Player propertyOwner) {
         this.propertyOwner = propertyOwner;
     }
