@@ -10,6 +10,7 @@ public class MonopolyBoard {
 
     //TODO: Special cells (eg. Free Parking, Jail) not populated
     //TODO:
+    Property start = new Property("Start");
     Property oldKentRoad = new Property("Old Kent Road", new int[]{70, 130, 220, 370, 750}, "brown", 60);
     Property whitechapelRoad = new Property("Whitechapel Road", new int[]{70, 130, 220, 370, 750}, "brown", 60);
     Property angelIslington = new Property("The Angel, Islington", new int[]{80, 140, 240, 410, 800}, "light blue", 100);
@@ -32,22 +33,26 @@ public class MonopolyBoard {
     Property bondStreet = new Property("Bond Street",  new int[]{250, 340, 480, 730, 1440}, "green", 320);
     Property parkLane = new Property("Park Lane", new int[]{270, 360, 510, 740, 1500}, "blue", 250);
     Property mayfair = new Property("Mayfair", new int[]{300, 400, 560, 810, 1600}, "blue", 400);
-
+    Property bankingEventSpecialCard = new Property("Banking Event Card");
+    Property moveToProperty = new Property("Location");
+    Property jail = new Property("Jail");
+    Property parking = new Property("Free Parking");
+    Property goToJail = new Property("Go To Jail");
     public Property[] propertiesList = new Property[]{
-            new Property(),
-            oldKentRoad, new Property(),
-            whitechapelRoad, new Property(),
-            angelIslington, new Property(),
-            euston, new Property(), pentonville,
-            new Property(), pallMall, whitehall,
+            start,
+            oldKentRoad, bankingEventSpecialCard,
+            whitechapelRoad, bankingEventSpecialCard,
+            angelIslington, euston,
+            moveToProperty, pentonville,
+            jail, pallMall, bankingEventSpecialCard, whitehall,
             northhumbAve, bowStreet, marlborough,
-            new Property(), vineStreet, new Property(),
-            strand, new Property(), fleetStreet,
+            moveToProperty, vineStreet, parking,
+            strand, bankingEventSpecialCard, fleetStreet,
             trafalgar, leicester, coventry,
-            new Property(), picadilly, new Property(),
-            regentStreet, new Property(), oxford,
-            bondStreet, new Property(), parkLane,
-            new Property(), mayfair
+            moveToProperty, picadilly, goToJail,
+            regentStreet, bankingEventSpecialCard, oxford,
+            bondStreet, bankingEventSpecialCard, parkLane,
+            moveToProperty, mayfair
 
     };
 

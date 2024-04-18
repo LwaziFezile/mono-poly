@@ -21,12 +21,11 @@ public class Player {
 
     //TODO: Print out the property name and it's current rent level for the method below, consider returning
     //TODO: the playerProperties list and do the for loop on line 24 where ever this method would be required
-    public ArrayList<Property> getPlayerProperties() {
+    public void getPlayerProperties() {
         System.out.println("Properties Owned by " + playerName);
         for (Property prop : playerProperties){
             System.out.println(prop.getPropertyName() + " - Rent Levels 1-5 " + prop.getPropertyRentLevels());
         }
-        return playerProperties;
     }
 
     public void setPlayerProperties(Property newPlayerProperty) {
@@ -61,5 +60,8 @@ public class Player {
 
     public boolean isPlayerBuyProperty() {
         return playerBuyProperty;
+    }
+    public ArrayList<Property> getPlayerPropertiesList(){
+        return playerProperties;
     }
 }

@@ -1,0 +1,17 @@
+Bug for monopoly and how to recreate them:
+    1. Turn not ending when player didn't roll a double
+       - B's Turn. Press [1] to Roll Dice, Press [2] to view credit for all or [3] to view your properties
+        1
+       - You Rolled: 5 and 4 Current Position: 7
+       - B Rolled a 9
+       - B CAN NOW PURCHASE PROPERTY.
+       - null is available to purchase for $0
+       - Press [1] to purchase this property or [0] to end your turn
+        0
+       - B ended their turn.
+       - B is in position: 16
+       - null is available to purchase for $0
+       - Press [1] to purchase this property or [0] to end your turn
+        0
+       - B ended their turn.
+        A's Turn. Press [1] to Roll Dice, Press [2] to view credit for all or [3] to view your properties
