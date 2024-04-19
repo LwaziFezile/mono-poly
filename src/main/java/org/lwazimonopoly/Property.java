@@ -95,6 +95,7 @@ public class Property {
     public String getPropertyOwner() {
         return propertyOwner.getPlayerName();
     }
+
     public boolean isPropertyOwnerNull(){
         return this.propertyOwner == null;
     }
@@ -121,7 +122,7 @@ public class Property {
             int playerDicePrompt = scanner.nextInt();
             while (playerDicePrompt > propertySize || playerDicePrompt < 1){
                 System.out.println(
-                        "Wrong input, Please input the number for the player you want to send to jail."
+                        "Wrong input, Please input the property you want to increase it's rent level"
                 );
                 for (int i = 0; i < properties.size(); i++) {
                     int index = i + 1;
@@ -162,12 +163,166 @@ public class Property {
 
     }
     // HAUNTED HOUSE, IN THE MONEY
-    public static void exchangeProperties(Player targetPlayer, Player[] playerList){
+    public static void exchangeProperties(Player targetPlayer, Player[] playerList) {
+        if (targetPlayer.getPlayerPropertiesList().isEmpty()) {
+            System.out.println(targetPlayer.getPlayerName() + " currently has no purchased properties");
+        } else {
+            exchangePropertiesFunction(targetPlayer, playerList);
+        }
+    }
+    public static void exchangePropertiesFunction(Player targetPlayer, Player[] playerList){
+        System.out.println("Please input the number of the property you want to exchange");
+        System.out.println(targetPlayer.getPlayerName() + "'s Properties:");
+        ArrayList<Property> properties = targetPlayer.getPlayerPropertiesList();
 
+        for (int i = 0; i < properties.size(); i++) {
+            int index = i + 1;
+            System.out.println("[" + index + "] - " + properties.get(i));
+        }
+        int propertySize = properties.size();
+        Scanner scanner = new Scanner(System.in);
+        int playerPrompt = scanner.nextInt();
+        while (playerPrompt > propertySize || playerPrompt < 1) {
+            System.out.println(
+                    "Wrong input, Please input the number of the property you want to exchange"
+            );
+            for (int i = 0; i < properties.size(); i++) {
+                int index = i + 1;
+                System.out.println("[" + index + "] - " + properties.get(i));
+            }
+            // Stores the property index to be exchanged for target player
+            playerPrompt = scanner.nextInt();
+        }
+        System.out.println(" Please input the number for the player you want to exchange with");
+        for (int i = 0; i < playerList.length; i++) {
+            int index = i + 1;
+            System.out.println("[" + index + "] - " + playerList[i].getPlayerName());
+        }
+        int players = playerList.length;
+        int selectedPlayerIndex = scanner.nextInt();
+        while (selectedPlayerIndex > players || selectedPlayerIndex < 1) {
+            System.out.println(
+                    "Wrong input, Please input the number of the player you want to exchange with:"
+            );
+            for (int i = 0; i < playerList.length; i++) {
+                int index = i + 1;
+                System.out.println("[" + index + "] - " + playerList[i].getPlayerName());
+            }
+            selectedPlayerIndex = scanner.nextInt();
+        }
+        Player selectedPlayer = playerList[selectedPlayerIndex];
+        if (selectedPlayer.getPlayerPropertiesList().isEmpty()) {
+            System.out.println(
+                    selectedPlayer.getPlayerName() + " currently has no purchased properties. Please select" +
+                            " another player or [0] to end your turn if no players own property."
+            );
+            while (selectedPlayerIndex > players || selectedPlayerIndex < 1) {
+                System.out.println(
+                        "Wrong input, Please input the number of the player you want to exchange with:"
+                );
+                for (int i = 0; i < playerList.length; i++) {
+                    int index = i + 1;
+                    System.out.println("[" + index + "] - " + playerList[i].getPlayerName());
+                }
+                selectedPlayerIndex = scanner.nextInt();
+            }
+            if (selectedPlayerIndex == 0){
+                System.out.println("You have ended your turn");
+            }
+            else {
+                System.out.println("Please input the number of the property you want to exchange");
+                System.out.println(targetPlayer.getPlayerName() + "\'s Properties:");
+                ArrayList<Property> selectedPlayerProperties =
+                        playerList[selectedPlayerIndex].getPlayerPropertiesList();
+
+                for (int i = 0; i < selectedPlayerProperties.size(); i++) {
+                    int index = i + 1;
+                    System.out.println("[" + index + "] - " + selectedPlayerProperties.get(i));
+                }
+                propertySize = selectedPlayerProperties.size();
+                int selectedPlayerPrompt = scanner.nextInt();
+                while (selectedPlayerPrompt > propertySize || selectedPlayerPrompt < 1) {
+                    System.out.println(
+                            "Wrong input, Please input the number of the property you want to exchange"
+                    );
+                    for (int i = 0; i < selectedPlayerProperties.size(); i++) {
+                        int index = i + 1;
+                        System.out.println("[" + index + "] - " + selectedPlayerProperties.get(i));
+                    }
+                    // Stores the property index to be exchanged for selected player
+                    selectedPlayerPrompt = scanner.nextInt();
+                }
+                Property targetPlayerExchange = properties.remove(playerPrompt);
+                Property selectedPlayerExchange = selectedPlayerProperties.remove(selectedPlayerPrompt);
+                properties.add(selectedPlayerExchange);
+                selectedPlayerProperties.add(targetPlayerExchange);
+                System.out.println(
+                        targetPlayer.getPlayerName() + " exchanged " +
+                                targetPlayerExchange.getPropertyName() + " with " + selectedPlayer.getPlayerName()
+                                + " for " + selectedPlayerExchange.getPropertyName()
+                );
+            }
+        }
     }
     // DEAL OF THE WEEK, STOP THE PRESSES, BOOM TOWN
     public static void moveToPropertySpace(Player targetPlayer, MonopolyBoard board){
-
+        // TODO: Circle back here once the Auctioning has been has been added
+        Property[] propertyBoard = board.propertiesList;
+        ArrayList <Property> targetProperties = targetPlayer.getPlayerPropertiesList();
+        System.out.println("Select Property Number You Want to Move To");
+        System.out.println(targetPlayer.getPlayerName() + "' Properties:");
+        for (Property property : targetPlayer.getPlayerPropertiesList()){
+            System.out.println(
+                    "[" + targetPlayer.getPlayerPropertiesList().indexOf(property) +
+                    "] - " + property.getPropertyName());
+        }
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Properties Available for Purchase:");
+        for(int i = 0; i < propertyBoard.length; i++){
+            if (propertyBoard[i].isPropertyOwnerNull()){
+                System.out.println(
+                        "["  + i +
+                        "] - " + propertyBoard[i].getPropertyName()
+                );
+            }
+        }
+//        int targetPropertiesSize = targetProperties.size();
+        Scanner scanner = new Scanner(System.in);
+        int playerPrompt = scanner.nextInt();
+        while (!propertyBoard[playerPrompt].isPropertyOwnerNull() &&
+                propertyBoard[playerPrompt].getPropertyName() != targetPlayer.getPlayerName()
+        ){
+            System.out.println(
+                    "Wrong input, You don't own this property. Please input the Property You Want to Move To:"
+            );
+            System.out.println("Select Property Number You Want to Move To");
+            System.out.println(targetPlayer.getPlayerName() + "' Properties:");
+            for (Property property : targetPlayer.getPlayerPropertiesList()){
+                System.out.println(
+                        "[" + targetPlayer.getPlayerPropertiesList().indexOf(property) +
+                                "] - " + property.getPropertyName());
+            }
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Properties Available for Purchase:");
+            for (Property property : targetPlayer.getPlayerPropertiesList()){
+                System.out.println(
+                        "[" + targetPlayer.getPlayerPropertiesList().indexOf(property) +
+                                "] - " + property.getPropertyName());
+            }
+            playerPrompt = scanner.nextInt();
+        }
+        if (targetPlayer.getPlayerName() == propertyBoard[playerPrompt].getPropertyOwner()){
+            System.out.println(
+                    "You've selected " + propertyBoard[playerPrompt].getPropertyName() + ". Rent Level Increased " +
+                    "By One."
+            );
+            propertyBoard[playerPrompt].setCurrentRentLevel(1);
+        }else if (propertyBoard[playerPrompt].isPropertyOwnerNull()){
+            System.out.println(
+                    "You've selected " + propertyBoard[playerPrompt].getPropertyName() + " to purchase for" +
+                    propertyBoard[playerPrompt].getPurchaseValue());
+            propertyBoard[playerPrompt].setPropertyOwner(targetPlayer);
+        }
     }
     // WIBBLE WOBBLE, LOVE IS IN THE AIR
     public static void increaseCreditBy200(Player targetPlayer, Player[] playerList){
