@@ -232,51 +232,51 @@ public class Main {
 
                 if (new ArrayList<String>(Arrays.asList("HAUNTED HOUSE","IN THE MONEY")).contains(special)
                 ){
-                    Property.exchangeProperties(currentPlayer, machine.getPlayers());
+                    CardMachine.exchangeProperties(currentPlayer, machine.getPlayers());
                 }
                 else if (new ArrayList<String>
                         (Arrays.asList("STOP THE PRESSES", "BOOM TOWN", "DEAL OF THE WEEK")).contains(special)) {
                     // TODO: Might have to display the properties not bought for clarity and the property
                     // TODO: the player owns if they want to increase the rent level
-                    Property.moveToPropertySpace(currentPlayer, monopolyBoard);
+                    CardMachine.moveToPropertySpace(currentPlayer, monopolyBoard);
                 }
                 else if (new ArrayList<String>
                         (Arrays.asList("WIBBLE WOBBLE", "LOVE IS IN THE AIR")).contains(special)) {
-                    Property.increaseCreditBy200(currentPlayer, machine.getPlayers());
+                    CardMachine.increaseCreditBy200(currentPlayer, machine.getPlayers());
                 }
                 else if (new ArrayList<String>
                         (Arrays.asList("TORNADO ALLEY", "DEMOLISHED")).contains(special)) {
-                    Property.resetPropertyRentLevel(currentPlayer);
+                    CardMachine.resetPropertyRentLevel(currentPlayer);
                 }
                 else if (new ArrayList<String>
                         (Arrays.asList("CRIME DOWN", "STARGAZING", "ON THE MAP")).contains(special)) {
-                    Property.increaseColorSetRentLevel(currentPlayer, monopolyBoard);
+                    CardMachine.increaseColorSetRentLevel(currentPlayer, monopolyBoard);
                 } else if (special == "\'TIS THE SEASON") {
-                    Property.decreaseColorSetRentLevel(currentPlayer);
+                    CardMachine.decreaseColorSetRentLevel(currentPlayer, monopolyBoard);
                 }
                 else if (special == "PONG! WHAT A STINKER"){
-                    Property.decreaseRentLevelSideBoard(currentPlayer, machine.getPlayers());
+                    CardMachine.decreaseRentLevelSideBoard(currentPlayer, monopolyBoard);
                 }
                 else if (special == "PICK YOUR OWN") {
-                    Property.sendPlayerJail(machine.getPlayers());
+                    CardMachine.sendPlayerJail(machine.getPlayers());
                 }
                 else if (special == "ON THE RUN") {
-                    Property.payLevelOneNextTwoTurns(machine.getPlayers());
+                    CardMachine.payLevelOneNextTwoTurns(machine.getPlayers());
                 }
                 else if (special == "GRAND DESIGNS") {
-                    Property.increasePropertyMaxRent(currentPlayer);
+                    CardMachine.increasePropertyMaxRent(currentPlayer);
                 }
                 else if (special == "WHAT A RIDE!") {
-                    Property.increaseRentLevelSideBoard(currentPlayer);
+                    CardMachine.increaseRentLevelSideBoard(currentPlayer, monopolyBoard);
                 }
                 else if (special == "HOUSE PARTY") {
-                    Property.increaseRentLevelDropForNeighbours(currentPlayer);
+                    CardMachine.increaseRentLevelDropForNeighbours(currentPlayer, monopolyBoard);
                 }
                 else if (special == "HIGHWAY TAX"){
-                    Property.payTaxForEveryProperty(currentPlayer);
+                    CardMachine.payTaxForEveryProperty(currentPlayer);
                 }
                 else if (special == "TOTAL GRIDLOCK"){
-                    Property.moveAllPlayersToParking(machine.getPlayers());
+                    CardMachine.moveAllPlayersToParking(machine.getPlayers());
                 }
                 bankingEventCards.addLast(special);
             }

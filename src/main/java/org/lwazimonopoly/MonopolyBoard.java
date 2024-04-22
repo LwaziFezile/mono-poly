@@ -1,6 +1,7 @@
 package org.lwazimonopoly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class MonopolyBoard {
@@ -55,6 +56,22 @@ public class MonopolyBoard {
             moveToProperty, mayfair
 
     };
+
+    public ArrayList<Property> sideAProperties = new ArrayList<>(Arrays.asList(
+        oldKentRoad, whitechapelRoad, angelIslington,
+            euston, pentonville
+    ));
+    public ArrayList<Property> sideBProperties = new ArrayList<>(Arrays.asList(
+            pallMall, whitehall, northhumbAve,bowStreet,
+            marlborough, vineStreet
+    ));
+    public ArrayList<Property> sideCProperties = new ArrayList<>(Arrays.asList(
+            strand, fleetStreet, trafalgar, leicester,
+            coventry, picadilly
+    ));
+    public ArrayList<Property> sideDProperties = new ArrayList<>(Arrays.asList(
+            regentStreet, oxford, bondStreet, parkLane, mayfair
+    ));
 
 
 
