@@ -26,11 +26,12 @@ public class Player {
         }
         return playerProperties;
     }
-
+    // Adds a property to the player's property list
     public void setPlayerProperties(Property newPlayerProperty) {
         this.playerProperties.add(newPlayerProperty);
     }
 
+    // Gets player current credit
     public int getPlayerCredit() {
         return playerCredit;
     }

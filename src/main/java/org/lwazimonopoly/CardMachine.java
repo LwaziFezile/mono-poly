@@ -7,11 +7,13 @@ public class CardMachine {
 //TODO: values?
     private Player player1, player2, player3, player4 = null;
     private Player[] players;
+    Scanner scanner = new Scanner(System.in);
+
     public CardMachine(int numberOfPlayers){
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             int index = i + 1;
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println("Enter Player " + index + " Name: ");
             String name = scanner.nextLine();
             if (player1 == null){
