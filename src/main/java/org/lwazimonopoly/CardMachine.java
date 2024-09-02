@@ -30,8 +30,20 @@ public class CardMachine {
                 players[i] = player4;
             }
         }
-        for (Player player : players){
-            System.out.println(player.getPlayerName());
-        }
+
     }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public boolean checkPlayerCredit(){
+        for (Player player : players) {
+            if (player.getPlayerCredit() < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

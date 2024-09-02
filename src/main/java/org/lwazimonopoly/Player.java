@@ -6,15 +6,18 @@ public class Player {
     private String playerName;
     private int playerCredit = 1500;
     private ArrayList <Property> playerProperties = new ArrayList<>();
+    public boolean playerActive = false;
+    public int playerBoardPosition = 0;
+    public int[] rolledDice;
     public Player(String playerName){
         this.playerName = playerName;
     }
     //TODO: If the values of both dice are equal to each other, prompt the player to roll again
 
-    public int[] rollDice(){
+    public void rollDice(){
         int dice1 = (int) (Math.random() * 6) + 1;
         int dice2 = (int) (Math.random() * 6) + 1;
-        return new int[]{dice1, dice2};
+        rolledDice = new int[]{dice1, dice2};
     }
 
     //TODO: Print out the property name and it's current rent level for the method below, consider returning
@@ -29,6 +32,8 @@ public class Player {
     // Adds a property to the player's property list
     public void setPlayerProperties(Property newPlayerProperty) {
         this.playerProperties.add(newPlayerProperty);
+        newPlayerProperty.setPropertyOwner(this);
+        playerCredit -= newPlayerProperty.getListedPrice();
     }
 
     // Gets player current credit
@@ -38,5 +43,12 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setPlayerBoardPosition(int boardPosition) {
+        this.playerBoardPosition = boardPosition;
+    }
+    public void deductPlayerCredit(int creditDeducted){
+        playerCredit -= creditDeducted;
     }
 }

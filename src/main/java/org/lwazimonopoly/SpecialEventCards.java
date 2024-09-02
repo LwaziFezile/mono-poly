@@ -1,6 +1,7 @@
 package org.lwazimonopoly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SpecialEventCards {
 
@@ -25,10 +26,7 @@ public class SpecialEventCards {
     // Randomly shuffles the deck, only gets called once
     public static boolean shuffleDeck(){
         if (!deckShuffled){
-            ArrayList <String> arrayList = new ArrayList<>();
-            for (String i : specialEventCardNames){
-                arrayList.add(i);
-            }
+            ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(specialEventCardNames));
             // Not efficient, randomIndex could be a value that has already been added to special event cards
             int index = 0;
             while (index < arrayList.size()){
