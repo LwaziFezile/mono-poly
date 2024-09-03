@@ -8,8 +8,9 @@ import java.util.Scanner;
 
 public class MonopolyBoard {
     //Shuffle Banking Event Card Deck
-
+    Scanner scanner = new Scanner(System.in);
     public ArrayList<String> specialEventCardsDeck = SpecialEventCards.specialEventCards_shuffled;
+    private final int JAIL_POSITION = 9;
     public ArrayList<Integer> statusEffectPostions = new ArrayList<>();
     public ArrayList<Integer> propertyCardPositions = new ArrayList<>();
     public ArrayList<Integer> locationCardPositions = new ArrayList<>();
@@ -106,10 +107,30 @@ public class MonopolyBoard {
     private void propertyTransaction(Property boardCell, Player player) {
          if (boardCell.isPropertyOwned() && player != boardCell.getPropertyOwner()){
              // Logic for paying rent
+             System.out.println("You have landed on " + boardCell.getPropertyOwner().getPlayerName() + "'s Property.");
+             System.out.println("Property - " + boardCell.getPropertyName());
+             System.out.println("Current Rent - R" + boardCell.getCurrentRentLevel());
+             rentPayment(player, boardCell.getCurrentRentLevel(), boardCell.getPropertyOwner());
          } else if (boardCell.isPropertyOwned() && player == boardCell.getPropertyOwner()) {
              // Give player the option to increase rent level
+             System.out.println("You have landed on " + boardCell.getPropertyOwner().getPlayerName() + "'s Property.");
+             boardCell.increaseCurrentRentLevel();
          } else if (!boardCell.isPropertyOwned()) {
              // Give player option to buy property
+             System.out.println(boardCell.getPropertyName() + " is available for purchase");
+             System.out.println("Options:");
+             System.out.println("1. Purchase Property");
+             System.out.println("2. Leave Property");
+             int input = scanner.nextInt();
+             while (!new ArrayList<>(Arrays.asList(1,2)).contains(input)) {
+                 System.out.println("!!!Invalid input, Try Again!!!");
+                 input = scanner.nextInt();
+             }
+             if (input == 1) {
+                 player.setPlayerProperties(boardCell, false);
+             } else if (input == 2) {
+                 System.out.println(player.getPlayerName() + " chose to not buy " + boardCell.getPropertyName());
+             }
          }
     }
     private void newPosition(Player player) {
@@ -117,12 +138,12 @@ public class MonopolyBoard {
         System.out.println("Options:");
         System.out.println("1. Pay R100 to move to an vacant property");
         System.out.println("2. Stay on current cell");
-        int input = new Scanner(System.in).nextInt();
+        int input = scanner.nextInt();
         while (!new ArrayList<>(Arrays.asList(1,2)).contains(input)) {
             System.out.println("!!!Invalid input!!!");
             System.out.println("1. Pay R100 to move to an vacant property");
             System.out.println("2. Stay on current cell");
-            input = new Scanner(System.in).nextInt();
+            input = scanner.nextInt();
         }
 
         if (input == 1) {
@@ -130,12 +151,40 @@ public class MonopolyBoard {
 
         }
     }
+
     private void specialEvent(Player player) {
 
     }
-    private void statusEffect(Player player) {
 
+    private void statusEffect(Player player) {
+        StatusEffectCard card = (StatusEffectCard) orderedBoard.get(player.playerBoardPosition);
+        switch (card.getEffectType()){
+            case "Go":
+                if (player.playerActive){
+                    System.out.println(player.getPlayerName() + " has been credited with R200 for completing the circuit.");
+                    player.creditPlayer(200);
+                }
+                break;
+            case "Jail":
+                if (player.playerActive){
+                    System.out.println(player.getPlayerName() + " is currently visiting Jail.");
+                }
+                break;
+            case "Free Parking":
+                if (player.playerActive){
+                    System.out.println(player.getPlayerName() + " has Free Parking.");
+                }
+                break;
+            case "Go to Jail":
+                if (player.playerActive && !player.playerInJail){
+                    player.playerInJail = true;
+                    player.setPlayerBoardPosition(JAIL_POSITION);
+                    System.out.println(player.getPlayerName() + " is in Jail.");
+                }
+                break;
+        }
     }
+
     private void newPositionTransaction(Player player) {
         player.deductPlayerCredit(LocationCard.movingCost);
         ArrayList<Property> availableProperties = new ArrayList<>();
@@ -153,14 +202,49 @@ public class MonopolyBoard {
             index.add(i);
         }
 
-        int input = new Scanner(System.in).nextInt();
+        int input = scanner.nextInt();
         while (!index.contains(input)) {
             System.out.println("!!!Invalid input, Try Again!!!");
         }
 
-        player.setPlayerProperties(availableProperties.get(input));
-
-        System.out.println("Purchased " + availableProperties.get(input).getPropertyName());
+        player.setPlayerProperties(availableProperties.get(input), false);
     }
 
+    private void rentPayment(Player player, int creditDue, Player owedPlayer) {
+        System.out.println("====================================");
+        System.out.println("Options:");
+        System.out.println("1. Pay with Credit");
+        System.out.println("2. Pay with Property");
+        int input = scanner.nextInt();
+        while (!new ArrayList<>(Arrays.asList(1,2)).contains(input)) {
+            System.out.println("!!!Invalid input, Try Again!!!");
+            input = scanner.nextInt();
+        }
+        if (input == 1) {
+            player.deductPlayerCredit(creditDue);
+            owedPlayer.creditPlayer(creditDue);
+            System.out.println(player.getPlayerName() + " payed R" + creditDue + " to " + owedPlayer.getPlayerName());
+            System.out.println(player.getPlayerName() + " credit: R" + player.getPlayerCredit());
+        } else if (input == 2) {
+            int creditPayed = 0;
+            while(creditPayed < creditDue) {
+                System.out.println("Select Property to pay with:");
+                for (int i = 0; i < player.getPlayerProperties().size(); i++) {
+                    System.out.println(i + " - " + player.getPlayerProperties().get(i).getPropertyName());
+                }
+                input = scanner.nextInt();
+                while (!new ArrayList<>(Arrays.asList(1,2)).contains(input)) {
+                    System.out.println("!!!Invalid input, Try Again!!!");
+                    input = scanner.nextInt();
+                }
+
+                System.out.println("You selected " + player.getPlayerProperties().get(input).getPropertyName());
+                creditPayed += player.getPlayerProperties().get(input).getListedPrice();
+
+                // Property changing owners
+                owedPlayer.setPlayerProperties(player.getPlayerProperties().get(input), true);
+                player.removePlayerProperty(player.getPlayerProperties().get(input).getPropertyName());
+            }
+        }
+    }
 }

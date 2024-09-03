@@ -41,8 +41,14 @@ public class Property {
         return propertyRentLevels[currentRentLevel];
     }
 
-    public void setCurrentRentLevel(int currentRentLevel) {
-        this.currentRentLevel = currentRentLevel;
+    public void increaseCurrentRentLevel() {
+        if (currentRentLevel < 5){
+            currentRentLevel++;
+            System.out.println(this.propertyName + " current rent - R" + propertyRentLevels[currentRentLevel]);
+        }else {
+            System.out.println("Max Rent for " + this.propertyName);
+        }
+
     }
 
     public Player getPropertyOwner() {

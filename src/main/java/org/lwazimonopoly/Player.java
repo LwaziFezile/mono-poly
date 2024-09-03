@@ -9,6 +9,7 @@ public class Player {
     public boolean playerActive = false;
     public int playerBoardPosition = 0;
     public int[] rolledDice;
+    public boolean playerInJail = false;
     public Player(String playerName){
         this.playerName = playerName;
     }
@@ -30,10 +31,16 @@ public class Player {
         return playerProperties;
     }
     // Adds a property to the player's property list
-    public void setPlayerProperties(Property newPlayerProperty) {
+    public void setPlayerProperties(Property newPlayerProperty, boolean repossessed) {
         this.playerProperties.add(newPlayerProperty);
         newPlayerProperty.setPropertyOwner(this);
-        playerCredit -= newPlayerProperty.getListedPrice();
+        if (!repossessed){
+            playerCredit -= newPlayerProperty.getListedPrice();
+            System.out.println("Purchased " + newPlayerProperty.getPropertyName());
+        }
+        else {
+            System.out.println("Acquired " + newPlayerProperty.getPropertyName());
+        }
     }
 
     // Gets player current credit
@@ -50,5 +57,16 @@ public class Player {
     }
     public void deductPlayerCredit(int creditDeducted){
         playerCredit -= creditDeducted;
+    }
+    public void creditPlayer(int credit){
+        playerCredit += credit;
+    }
+    public void removePlayerProperty(String propertyName){
+        for (Property prop : playerProperties){
+            if (prop.getPropertyName().equals(propertyName)){
+                playerProperties.remove(prop);
+                System.out.println("Removed property " + prop.getPropertyName());
+            }
+        }
     }
 }
